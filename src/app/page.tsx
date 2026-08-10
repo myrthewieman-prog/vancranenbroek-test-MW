@@ -1,7 +1,6 @@
 import { BudgetPacingCard } from "@/components/BudgetPacingCard";
-import { DataTable } from "@/components/DataTable";
+import { ChannelTabs } from "@/components/ChannelTabs";
 import { KpiCard } from "@/components/KpiCard";
-import { KpiTargetTable } from "@/components/KpiTargetTable";
 import { PerformanceChart } from "@/components/PerformanceChart";
 import { SectionLabel } from "@/components/SectionLabel";
 import { googleAds, kpis, meta, paidOverview, weeklySpend } from "@/lib/mock-data";
@@ -40,29 +39,8 @@ export default function Home() {
         </section>
 
         <section className="mt-12">
-          <SectionLabel>Google Ads</SectionLabel>
-          <div className="grid grid-cols-1 gap-4">
-            <BudgetPacingCard title="Budget & pacing" data={googleAds.budgetPacing} />
-            <KpiTargetTable rows={googleAds.kpiRows} />
-            <DataTable
-              title="Campagnes"
-              columns={googleAds.campaignColumns}
-              rows={googleAds.campaigns}
-            />
-          </div>
-        </section>
-
-        <section className="mt-12">
-          <SectionLabel>Meta</SectionLabel>
-          <div className="grid grid-cols-1 gap-4">
-            <BudgetPacingCard title="Budget & pacing" data={meta.budgetPacing} />
-            <KpiTargetTable rows={meta.kpiRows} />
-            <DataTable
-              title="Campagnes"
-              columns={meta.campaignColumns}
-              rows={meta.campaigns}
-            />
-          </div>
+          <SectionLabel>Per kanaal</SectionLabel>
+          <ChannelTabs channels={[googleAds, meta]} />
         </section>
       </div>
 
