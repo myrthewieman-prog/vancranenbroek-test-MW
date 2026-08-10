@@ -1,7 +1,10 @@
-import { CampaignTable } from "@/components/CampaignTable";
+import { BudgetPacingCard } from "@/components/BudgetPacingCard";
+import { DataTable } from "@/components/DataTable";
 import { KpiCard } from "@/components/KpiCard";
+import { KpiTargetTable } from "@/components/KpiTargetTable";
 import { PerformanceChart } from "@/components/PerformanceChart";
-import { campaigns, kpis, weeklyClicks } from "@/lib/mock-data";
+import { SectionLabel } from "@/components/SectionLabel";
+import { googleAds, kpis, meta, paidOverview, weeklySpend } from "@/lib/mock-data";
 
 export default function Home() {
   return (
@@ -11,14 +14,14 @@ export default function Home() {
           <div className="flex items-center gap-2">
             <span className="inline-block h-[10px] w-[10px] bg-accent" />
             <p className="text-xs font-bold uppercase tracking-wide text-foreground">
-              Van Cranenbroek
+              Van Cranenbroek — Paid
             </p>
           </div>
           <h1 className="mt-3 text-4xl text-foreground sm:text-5xl">
             Campagne-dashboard
           </h1>
           <p className="mt-3 max-w-xl text-base text-text-secondary">
-            Overzicht op basis van mock data — laatste 8 weken.
+            Google Ads &amp; Meta op basis van mock data — laatste 8 weken.
           </p>
         </header>
 
@@ -29,11 +32,37 @@ export default function Home() {
         </section>
 
         <section className="mt-4">
-          <PerformanceChart data={weeklyClicks} />
+          <BudgetPacingCard title="Budget & pacing — totaal paid" data={paidOverview} />
         </section>
 
         <section className="mt-4">
-          <CampaignTable campaigns={campaigns} />
+          <PerformanceChart data={weeklySpend} />
+        </section>
+
+        <section className="mt-12">
+          <SectionLabel>Google Ads</SectionLabel>
+          <div className="grid grid-cols-1 gap-4">
+            <BudgetPacingCard title="Budget & pacing" data={googleAds.budgetPacing} />
+            <KpiTargetTable rows={googleAds.kpiRows} />
+            <DataTable
+              title="Campagnes"
+              columns={googleAds.campaignColumns}
+              rows={googleAds.campaigns}
+            />
+          </div>
+        </section>
+
+        <section className="mt-12">
+          <SectionLabel>Meta</SectionLabel>
+          <div className="grid grid-cols-1 gap-4">
+            <BudgetPacingCard title="Budget & pacing" data={meta.budgetPacing} />
+            <KpiTargetTable rows={meta.kpiRows} />
+            <DataTable
+              title="Campagnes"
+              columns={meta.campaignColumns}
+              rows={meta.campaigns}
+            />
+          </div>
         </section>
       </div>
 

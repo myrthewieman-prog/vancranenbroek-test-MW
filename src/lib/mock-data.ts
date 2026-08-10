@@ -6,51 +6,146 @@ export type Kpi = {
 };
 
 export const kpis: Kpi[] = [
-  { label: "Impressies", value: "2.847.300", delta: 8.2, deltaLabel: "vs. vorige periode" },
-  { label: "Kliks", value: "64.912", delta: 5.4, deltaLabel: "vs. vorige periode" },
-  { label: "CTR", value: "2,28%", delta: -0.3, deltaLabel: "vs. vorige periode" },
-  { label: "Conversies", value: "3.184", delta: 12.6, deltaLabel: "vs. vorige periode" },
-  { label: "Advertentiebudget", value: "€ 48.250", delta: 2.1, deltaLabel: "vs. vorige periode" },
-  { label: "ROAS", value: "4,6x", delta: -1.8, deltaLabel: "vs. vorige periode" },
+  { label: "Mediabudget besteed", value: "€ 17.600", delta: 4.8, deltaLabel: "vs. vorige periode" },
+  { label: "Impressies", value: "1.160.000", delta: 9.1, deltaLabel: "vs. vorige periode" },
+  { label: "Kliks", value: "22.320", delta: 6.7, deltaLabel: "vs. vorige periode" },
+  { label: "CTR", value: "1,92%", delta: -0.2, deltaLabel: "vs. vorige periode" },
+  { label: "Conversies", value: "1.317", delta: 11.3, deltaLabel: "vs. vorige periode" },
+  { label: "ROAS", value: "5,1x", delta: 2.4, deltaLabel: "vs. vorige periode" },
 ];
 
-export type WeeklyChannelPerformance = {
+export type WeeklySpend = {
   week: string;
-  Social: number;
-  Search: number;
-  Display: number;
+  "Google Ads": number;
+  Meta: number;
 };
 
-export const weeklyClicks: WeeklyChannelPerformance[] = [
-  { week: "Wk 26", Social: 5200, Search: 6100, Display: 2400 },
-  { week: "Wk 27", Social: 5600, Search: 6300, Display: 2550 },
-  { week: "Wk 28", Social: 6100, Search: 6050, Display: 2700 },
-  { week: "Wk 29", Social: 5900, Search: 6800, Display: 2650 },
-  { week: "Wk 30", Social: 6700, Search: 7100, Display: 2900 },
-  { week: "Wk 31", Social: 7200, Search: 7400, Display: 3050 },
-  { week: "Wk 32", Social: 7600, Search: 7250, Display: 3200 },
-  { week: "Wk 33", Social: 8100, Search: 7900, Display: 3400 },
+export const weeklySpend: WeeklySpend[] = [
+  { week: "Wk 27", "Google Ads": 1200, Meta: 950 },
+  { week: "Wk 28", "Google Ads": 1400, Meta: 1150 },
+  { week: "Wk 29", "Google Ads": 1550, Meta: 1300 },
+  { week: "Wk 30", "Google Ads": 1650, Meta: 1400 },
+  { week: "Wk 31", "Google Ads": 1800, Meta: 1550 },
+  { week: "Wk 32", "Google Ads": 1900, Meta: 1750 },
 ];
 
-export type Campaign = {
-  campagne: string;
-  kanaal: "Social" | "Search" | "Display" | "Retail media";
-  status: "Actief" | "Gepauzeerd" | "Gepland";
-  budget: number;
-  impressies: number;
-  kliks: number;
-  ctr: number;
-  conversies: number;
-  roas: number;
+export type BudgetPacing = {
+  totalMediaspend: number;
+  spent: number;
+  startDate: string;
+  endDate: string;
+  today: string;
+  daysTotal: number;
+  daysElapsed: number;
 };
 
-export const campaigns: Campaign[] = [
-  { campagne: "Tuinseizoen — Barbecues", kanaal: "Search", status: "Actief", budget: 9500, impressies: 412300, kliks: 11250, ctr: 2.73, conversies: 612, roas: 5.8 },
-  { campagne: "Wonen — Vloeren & Verf", kanaal: "Social", status: "Actief", budget: 7200, impressies: 388900, kliks: 8340, ctr: 2.14, conversies: 401, roas: 4.1 },
-  { campagne: "Klussen — Gereedschap", kanaal: "Search", status: "Actief", budget: 6800, impressies: 301500, kliks: 9120, ctr: 3.02, conversies: 587, roas: 6.4 },
-  { campagne: "Dieren — Zomeractie", kanaal: "Display", status: "Actief", budget: 4100, impressies: 275400, kliks: 4980, ctr: 1.81, conversies: 214, roas: 3.2 },
-  { campagne: "Tuinmeubelen Retargeting", kanaal: "Social", status: "Actief", budget: 5300, impressies: 198700, kliks: 6210, ctr: 3.13, conversies: 388, roas: 5.1 },
-  { campagne: "Outdoor Cooking Prospecting", kanaal: "Display", status: "Gepauzeerd", budget: 3600, impressies: 244100, kliks: 3870, ctr: 1.59, conversies: 126, roas: 2.4 },
-  { campagne: "Vaktechniek — B2B", kanaal: "Retail media", status: "Actief", budget: 5950, impressies: 156800, kliks: 4290, ctr: 2.74, conversies: 341, roas: 4.9 },
-  { campagne: "Najaarscollectie — Teaser", kanaal: "Social", status: "Gepland", budget: 5800, impressies: 0, kliks: 0, ctr: 0, conversies: 0, roas: 0 },
-];
+export const paidOverview: BudgetPacing = {
+  totalMediaspend: 27000,
+  spent: 17600,
+  startDate: "1-7-2026",
+  endDate: "31-8-2026",
+  today: "10-8-2026",
+  daysTotal: 62,
+  daysElapsed: 41,
+};
+
+export type KpiTargetRow = {
+  metric: string;
+  achieved: number;
+  target: number;
+  format: "currency" | "number" | "percent" | "decimal";
+  lowerIsBetter?: boolean;
+  neutral?: boolean;
+};
+
+export type ChannelData = {
+  label: string;
+  budgetPacing: BudgetPacing;
+  kpiRows: KpiTargetRow[];
+  campaigns: Record<string, string | number>[];
+  campaignColumns: { key: string; label: string; align?: "left" | "right"; format?: "currency" | "number" | "percent" }[];
+};
+
+export const googleAds: ChannelData = {
+  label: "Google Ads",
+  budgetPacing: {
+    totalMediaspend: 15000,
+    spent: 9500,
+    startDate: "1-7-2026",
+    endDate: "31-8-2026",
+    today: "10-8-2026",
+    daysTotal: 62,
+    daysElapsed: 41,
+  },
+  kpiRows: [
+    { metric: "Budget", achieved: 9500, target: 15000, format: "currency", neutral: true },
+    { metric: "CPM", achieved: 15.32, target: 18.0, format: "currency", lowerIsBetter: true },
+    { metric: "Impressies", achieved: 620000, target: 900000, format: "number" },
+    { metric: "CPC", achieved: 0.76, target: 0.9, format: "currency", lowerIsBetter: true },
+    { metric: "Kliks", achieved: 12450, target: 16500, format: "number" },
+    { metric: "CTR", achieved: 2.01, target: 1.8, format: "percent" },
+    { metric: "Conversies", achieved: 812, target: 950, format: "number" },
+    { metric: "CPA", achieved: 11.7, target: 15.0, format: "currency", lowerIsBetter: true },
+    { metric: "Conversieratio", achieved: 6.52, target: 5.5, format: "percent" },
+  ],
+  campaignColumns: [
+    { key: "campagne", label: "Campagne" },
+    { key: "netwerk", label: "Netwerk" },
+    { key: "kosten", label: "Kosten", align: "right", format: "currency" },
+    { key: "impressies", label: "Impressies", align: "right", format: "number" },
+    { key: "kliks", label: "Kliks", align: "right", format: "number" },
+    { key: "ctr", label: "CTR", align: "right", format: "percent" },
+    { key: "conversies", label: "Conversies", align: "right", format: "number" },
+    { key: "cpa", label: "CPA", align: "right", format: "currency" },
+  ],
+  campaigns: [
+    { campagne: "Search — Tuinseizoen Barbecues", netwerk: "Zoeknetwerk", kosten: 2850, impressies: 148000, kliks: 4120, ctr: 2.78, conversies: 298, cpa: 9.56 },
+    { campagne: "Search — Klussen Gereedschap", netwerk: "Zoeknetwerk", kosten: 2100, impressies: 121000, kliks: 3340, ctr: 2.76, conversies: 241, cpa: 8.71 },
+    { campagne: "Search — Merknaam", netwerk: "Zoeknetwerk", kosten: 850, impressies: 38000, kliks: 2980, ctr: 7.84, conversies: 189, cpa: 4.5 },
+    { campagne: "Performance Max — Wonen", netwerk: "Performance Max", kosten: 2400, impressies: 268000, kliks: 1680, ctr: 0.63, conversies: 62, cpa: 38.71 },
+    { campagne: "Search — Dieren & Voeding", netwerk: "Zoeknetwerk", kosten: 1300, impressies: 45000, kliks: 330, ctr: 0.73, conversies: 22, cpa: 59.09 },
+  ],
+};
+
+export const meta: ChannelData = {
+  label: "Meta",
+  budgetPacing: {
+    totalMediaspend: 12000,
+    spent: 8100,
+    startDate: "1-7-2026",
+    endDate: "31-8-2026",
+    today: "10-8-2026",
+    daysTotal: 62,
+    daysElapsed: 41,
+  },
+  kpiRows: [
+    { metric: "Budget", achieved: 8100, target: 12000, format: "currency", neutral: true },
+    { metric: "CPM", achieved: 15.0, target: 16.5, format: "currency", lowerIsBetter: true },
+    { metric: "Impressies", achieved: 540000, target: 750000, format: "number" },
+    { metric: "Bereik", achieved: 210000, target: 280000, format: "number" },
+    { metric: "Frequentie", achieved: 2.6, target: 3.0, format: "decimal", neutral: true },
+    { metric: "CPC", achieved: 0.82, target: 1.0, format: "currency", lowerIsBetter: true },
+    { metric: "Kliks", achieved: 9870, target: 12000, format: "number" },
+    { metric: "CTR", achieved: 1.83, target: 1.6, format: "percent" },
+    { metric: "Conversies", achieved: 505, target: 600, format: "number" },
+    { metric: "CPA", achieved: 16.04, target: 20.0, format: "currency", lowerIsBetter: true },
+    { metric: "Conversieratio", achieved: 5.12, target: 5.0, format: "percent" },
+  ],
+  campaignColumns: [
+    { key: "campagne", label: "Campagne" },
+    { key: "doelstelling", label: "Doelstelling" },
+    { key: "spend", label: "Amount spent", align: "right", format: "currency" },
+    { key: "impressies", label: "Impressions", align: "right", format: "number" },
+    { key: "bereik", label: "Reach", align: "right", format: "number" },
+    { key: "kliks", label: "Kliks", align: "right", format: "number" },
+    { key: "ctr", label: "CTR", align: "right", format: "percent" },
+    { key: "conversies", label: "Conversies", align: "right", format: "number" },
+  ],
+  campaigns: [
+    { campagne: "Prospecting — Tuinmeubelen", doelstelling: "Verkeer", spend: 2200, impressies: 165000, bereik: 72000, kliks: 2850, ctr: 1.73, conversies: 132 },
+    { campagne: "Retargeting — Vloeren & Verf", doelstelling: "Conversies", spend: 1450, impressies: 68000, bereik: 24000, kliks: 2210, ctr: 3.25, conversies: 178 },
+    { campagne: "Awareness — Zomeractie Dieren", doelstelling: "Bereik", spend: 1600, impressies: 172000, bereik: 78000, kliks: 1890, ctr: 1.1, conversies: 61 },
+    { campagne: "Conversie — Outdoor Cooking", doelstelling: "Conversies", spend: 1550, impressies: 78000, bereik: 22000, kliks: 1640, ctr: 2.1, conversies: 94 },
+    { campagne: "Retargeting — Klussen Gereedschap", doelstelling: "Conversies", spend: 1300, impressies: 57000, bereik: 14000, kliks: 1280, ctr: 2.25, conversies: 40 },
+  ],
+};

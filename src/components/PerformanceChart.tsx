@@ -10,13 +10,19 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import type { WeeklyChannelPerformance } from "@/lib/mock-data";
+import { SectionLabel } from "@/components/SectionLabel";
+import type { WeeklySpend } from "@/lib/mock-data";
 
 const SERIES = [
-  { key: "Search", color: "var(--series-1)" },
-  { key: "Social", color: "var(--series-2)" },
-  { key: "Display", color: "var(--series-3)" },
+  { key: "Google Ads", color: "var(--series-1)" },
+  { key: "Meta", color: "var(--series-2)" },
 ] as const;
+
+const currencyFormat = new Intl.NumberFormat("nl-NL", {
+  style: "currency",
+  currency: "EUR",
+  maximumFractionDigits: 0,
+});
 
 function ChartTooltip({
   active,
@@ -44,7 +50,7 @@ function ChartTooltip({
             />
             <span className="text-text-secondary">{entry.name}</span>
             <span className="ml-auto font-medium">
-              {entry.value.toLocaleString("nl-NL")}
+              {currencyFormat.format(entry.value)}
             </span>
           </li>
         ))}
@@ -53,15 +59,10 @@ function ChartTooltip({
   );
 }
 
-export function PerformanceChart({ data }: { data: WeeklyChannelPerformance[] }) {
+export function PerformanceChart({ data }: { data: WeeklySpend[] }) {
   return (
     <div className="rounded-xl bg-surface p-6">
-      <div className="mb-4 flex items-center gap-2">
-        <span className="inline-block h-[9px] w-[9px] bg-accent" />
-        <h2 className="text-xs font-bold uppercase tracking-wide text-text-secondary">
-          Kliks per kanaal, laatste 8 weken
-        </h2>
-      </div>
+      <SectionLabel>Mediabudget per kanaal, per week</SectionLabel>
       <div className="h-72 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data} margin={{ top: 4, right: 8, bottom: 0, left: 0 }}>
@@ -76,7 +77,8 @@ export function PerformanceChart({ data }: { data: WeeklyChannelPerformance[] })
               tick={{ fill: "var(--text-muted)", fontSize: 12 }}
               axisLine={false}
               tickLine={false}
-              width={48}
+              width={56}
+              tickFormatter={(value) => currencyFormat.format(value)}
             />
             <Tooltip content={<ChartTooltip />} cursor={{ stroke: "var(--gridline)" }} />
             <Legend
