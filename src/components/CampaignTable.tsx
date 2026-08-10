@@ -15,53 +15,55 @@ const currencyFormat = new Intl.NumberFormat("nl-NL", {
 
 export function CampaignTable({ campaigns }: { campaigns: Campaign[] }) {
   return (
-    <div className="rounded-xl border border-border bg-surface p-5 shadow-sm">
-      <div className="mb-4">
-        <h2 className="text-sm font-medium text-foreground">Campagnes</h2>
-        <p className="text-xs text-text-muted">Bron: mock data</p>
+    <div className="rounded-xl bg-surface p-6">
+      <div className="mb-4 flex items-center gap-2">
+        <span className="inline-block h-[9px] w-[9px] bg-accent" />
+        <h2 className="text-xs font-bold uppercase tracking-wide text-text-secondary">
+          Campagnes
+        </h2>
       </div>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto rounded-lg border border-border">
         <table className="w-full min-w-[720px] border-collapse text-sm">
           <thead>
-            <tr className="border-b border-border text-left text-xs text-text-muted">
-              <th className="py-2 pr-4 font-medium">Campagne</th>
-              <th className="py-2 pr-4 font-medium">Kanaal</th>
-              <th className="py-2 pr-4 font-medium">Status</th>
-              <th className="py-2 pr-4 text-right font-medium">Budget</th>
-              <th className="py-2 pr-4 text-right font-medium">Impressies</th>
-              <th className="py-2 pr-4 text-right font-medium">Kliks</th>
-              <th className="py-2 pr-4 text-right font-medium">CTR</th>
-              <th className="py-2 pr-4 text-right font-medium">Conversies</th>
-              <th className="py-2 pr-0 text-right font-medium">ROAS</th>
+            <tr className="bg-[var(--header-fill)] text-left text-xs text-white">
+              <th className="py-3 pl-4 pr-4 font-bold">Campagne</th>
+              <th className="py-3 pr-4 font-bold">Kanaal</th>
+              <th className="py-3 pr-4 font-bold">Status</th>
+              <th className="py-3 pr-4 text-right font-bold">Budget</th>
+              <th className="py-3 pr-4 text-right font-bold">Impressies</th>
+              <th className="py-3 pr-4 text-right font-bold">Kliks</th>
+              <th className="py-3 pr-4 text-right font-bold">CTR</th>
+              <th className="py-3 pr-4 text-right font-bold">Conversies</th>
+              <th className="py-3 pr-4 text-right font-bold">ROAS</th>
             </tr>
           </thead>
           <tbody>
-            {campaigns.map((c) => (
+            {campaigns.map((c, i) => (
               <tr
                 key={c.campagne}
-                className="border-b border-border last:border-0 text-foreground"
+                className={`text-foreground ${i % 2 === 1 ? "bg-surface-alt" : "bg-surface"}`}
               >
-                <td className="py-2.5 pr-4 font-medium">{c.campagne}</td>
-                <td className="py-2.5 pr-4 text-text-secondary">{c.kanaal}</td>
-                <td className={`py-2.5 pr-4 font-medium ${STATUS_STYLES[c.status]}`}>
+                <td className="py-3 pl-4 pr-4 font-medium">{c.campagne}</td>
+                <td className="py-3 pr-4 text-text-secondary">{c.kanaal}</td>
+                <td className={`py-3 pr-4 font-bold ${STATUS_STYLES[c.status]}`}>
                   {c.status}
                 </td>
-                <td className="py-2.5 pr-4 text-right tabular-nums">
+                <td className="py-3 pr-4 text-right tabular-nums">
                   {currencyFormat.format(c.budget)}
                 </td>
-                <td className="py-2.5 pr-4 text-right tabular-nums">
+                <td className="py-3 pr-4 text-right tabular-nums">
                   {numberFormat.format(c.impressies)}
                 </td>
-                <td className="py-2.5 pr-4 text-right tabular-nums">
+                <td className="py-3 pr-4 text-right tabular-nums">
                   {numberFormat.format(c.kliks)}
                 </td>
-                <td className="py-2.5 pr-4 text-right tabular-nums">
+                <td className="py-3 pr-4 text-right tabular-nums">
                   {c.ctr.toLocaleString("nl-NL", { minimumFractionDigits: 2 })}%
                 </td>
-                <td className="py-2.5 pr-4 text-right tabular-nums">
+                <td className="py-3 pr-4 text-right tabular-nums">
                   {numberFormat.format(c.conversies)}
                 </td>
-                <td className="py-2.5 pr-0 text-right tabular-nums">
+                <td className="py-3 pr-4 text-right tabular-nums">
                   {c.roas > 0 ? `${c.roas.toLocaleString("nl-NL")}x` : "—"}
                 </td>
               </tr>

@@ -55,12 +55,12 @@ function ChartTooltip({
 
 export function PerformanceChart({ data }: { data: WeeklyChannelPerformance[] }) {
   return (
-    <div className="rounded-xl border border-border bg-surface p-5 shadow-sm">
-      <div className="mb-4">
-        <h2 className="text-sm font-medium text-foreground">
+    <div className="rounded-xl bg-surface p-6">
+      <div className="mb-4 flex items-center gap-2">
+        <span className="inline-block h-[9px] w-[9px] bg-accent" />
+        <h2 className="text-xs font-bold uppercase tracking-wide text-text-secondary">
           Kliks per kanaal, laatste 8 weken
         </h2>
-        <p className="text-xs text-text-muted">Bron: mock data</p>
       </div>
       <div className="h-72 w-full">
         <ResponsiveContainer width="100%" height="100%">
