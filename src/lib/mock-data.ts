@@ -31,6 +31,18 @@ export const clientGoals: GoalRow[] = [
   { label: "ROAS", achieved: 5.1, target: 4.5, format: "multiplier" },
 ];
 
+export const clientChannelColumns = [
+  { key: "kanaal", label: "Kanaal" },
+  { key: "spend", label: "Spend", align: "right" as const, format: "currency" as const },
+  { key: "orders", label: "Orders", align: "right" as const, format: "number" as const },
+  { key: "cpo", label: "CPO", align: "right" as const, format: "currency" as const },
+];
+
+export const clientChannelBreakdown: Record<string, string | number>[] = [
+  { kanaal: "Google Ads", spend: 9500, orders: 812, cpo: 11.7 },
+  { kanaal: "Meta", spend: 8100, orders: 505, cpo: 16.04 },
+];
+
 export const clientHighlights: string[] = [
   "Conversieratio (5,90%) ligt boven doel — vooral gedreven door Search — Merknaam (CTR 7,84%) en Search — Tuinseizoen Barbecues.",
   "ROAS staat op 5,1x, ruim boven het doel van 4,5x.",
