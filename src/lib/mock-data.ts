@@ -14,6 +14,35 @@ export const kpis: Kpi[] = [
   { label: "ROAS", value: "5,1x", delta: 2.4, deltaLabel: "vs. vorige periode" },
 ];
 
+export const clientKpis: Kpi[] = [kpis[0], kpis[2], kpis[4], kpis[5]];
+
+export type GoalRow = {
+  label: string;
+  achieved: number;
+  target: number;
+  format: "currency" | "number" | "percent" | "multiplier";
+};
+
+export const clientGoals: GoalRow[] = [
+  { label: "Bezoekers via paid", achieved: 22320, target: 27500, format: "number" },
+  { label: "Conversieratio", achieved: 5.9, target: 5.5, format: "percent" },
+  { label: "Conversies", achieved: 1317, target: 1550, format: "number" },
+  { label: "Omzet (indicatief o.b.v. ROAS)", achieved: 89760, target: 110000, format: "currency" },
+  { label: "ROAS", achieved: 5.1, target: 4.5, format: "multiplier" },
+];
+
+export const clientHighlights: string[] = [
+  "Conversieratio (5,90%) ligt boven doel — vooral gedreven door Search — Merknaam (CTR 7,84%) en Search — Tuinseizoen Barbecues.",
+  "ROAS staat op 5,1x, ruim boven het doel van 4,5x.",
+  "Retargeting op Meta (Vloeren & Verf) levert binnen dat kanaal de laagste kosten per conversie op.",
+];
+
+export const clientAttention: string[] = [
+  "Bezoekers lopen nog iets achter op doel: bij 66% van de looptijd is 81% van het bezoekersdoel behaald.",
+  "Performance Max — Wonen heeft een duidelijk hogere kostprijs per conversie dan de rest van Google Ads; komende periode scherper sturen op targeting.",
+  "Mediabudget is voor 65% besteed bij 66% van de looptijd — pacing ligt op schema.",
+];
+
 export type WeeklySpend = {
   week: string;
   "Google Ads": number;
