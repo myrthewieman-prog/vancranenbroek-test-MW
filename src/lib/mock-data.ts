@@ -91,6 +91,52 @@ export const monitorPeriodMeta: Record<
   },
 };
 
+export const monitorWeekOptions: string[] = [
+  "Week van 5 jan – 11 jan 2026",
+  "Week van 12 jan – 18 jan 2026",
+  "Week van 19 jan – 25 jan 2026",
+  "Week van 26 jan – 1 feb 2026",
+  "Week van 2 feb – 8 feb 2026",
+  "Week van 9 feb – 15 feb 2026",
+  "Week van 16 feb – 22 feb 2026",
+  "Week van 23 feb – 1 mrt 2026",
+  "Week van 2 mrt – 8 mrt 2026",
+  "Week van 9 mrt – 15 mrt 2026",
+  "Week van 16 mrt – 22 mrt 2026",
+  "Week van 23 mrt – 29 mrt 2026",
+  "Week van 30 mrt – 5 apr 2026",
+  "Week van 6 apr – 12 apr 2026",
+  "Week van 13 apr – 19 apr 2026",
+  "Week van 20 apr – 26 apr 2026",
+  "Week van 27 apr – 3 mei 2026",
+  "Week van 4 mei – 10 mei 2026",
+  "Week van 11 mei – 17 mei 2026",
+  "Week van 18 mei – 24 mei 2026",
+  "Week van 25 mei – 31 mei 2026",
+  "Week van 1 jun – 7 jun 2026",
+  "Week van 8 jun – 14 jun 2026",
+  "Week van 15 jun – 21 jun 2026",
+  "Week van 22 jun – 28 jun 2026",
+  "Week van 29 jun – 5 jul 2026",
+  "Week van 6 jul – 12 jul 2026",
+  "Week van 13 jul – 19 jul 2026",
+  "Week van 20 jul – 26 jul 2026",
+  "Week van 27 jul – 2 aug 2026",
+  "Week van 3 aug – 9 aug 2026",
+  "Week van 10 aug – 16 aug 2026",
+];
+
+export const monitorMonthOptions: string[] = [
+  "Januari 2026",
+  "Februari 2026",
+  "Maart 2026",
+  "April 2026",
+  "Mei 2026",
+  "Juni 2026",
+  "Juli 2026",
+  "Augustus 2026",
+];
+
 export type MonitorCampaign = {
   campagne: string;
   kosten: number;

@@ -1,4 +1,7 @@
-import type { MonitorPeriod } from "@/lib/mock-data";
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { monitorMonthOptions, monitorWeekOptions, type MonitorPeriod } from "@/lib/mock-data";
 
 export function MonitorHeroHeader({
   eyebrow,
@@ -17,6 +20,31 @@ export function MonitorHeroHeader({
   buttonLabel: string;
   note: string;
 }) {
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState<string | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const options = period === "week" ? monitorWeekOptions : monitorMonthOptions;
+  const currentOption = options[options.length - 1];
+
+  useEffect(() => {
+    setSelected(null);
+    setOpen(false);
+  }, [period]);
+
+  useEffect(() => {
+    if (!open) return;
+    function handleClickOutside(event: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [open]);
+
+  const displayLabel = selected === null || selected === currentOption ? buttonLabel : selected;
+
   return (
     <div
       className="rounded-2xl p-8 sm:p-10"
@@ -60,13 +88,49 @@ export function MonitorHeroHeader({
               Maand
             </button>
           </div>
-          <button
-            type="button"
-            className="flex items-center gap-2 rounded-full bg-accent px-5 py-2 text-sm font-bold text-white"
-          >
-            {buttonLabel}
-            <span aria-hidden>▾</span>
-          </button>
+
+          <div ref={containerRef} className="relative">
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              className="flex items-center gap-2 rounded-full bg-accent px-5 py-2 text-sm font-bold text-white"
+            >
+              {displayLabel}
+              <span aria-hidden className={`transition-transform ${open ? "rotate-180" : ""}`}>
+                ▾
+              </span>
+            </button>
+
+            {open && (
+              <div className="absolute right-0 z-10 mt-2 max-h-80 w-72 overflow-y-auto rounded-xl border border-border bg-surface p-1.5 shadow-xl">
+                {options
+                  .slice()
+                  .reverse()
+                  .map((option) => {
+                    const isSelected =
+                      selected === null ? option === currentOption : option === selected;
+                    return (
+                      <button
+                        key={option}
+                        type="button"
+                        onClick={() => {
+                          setSelected(option);
+                          setOpen(false);
+                        }}
+                        className={`flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2 text-left text-sm ${
+                          isSelected
+                            ? "bg-accent/10 font-bold text-accent"
+                            : "text-foreground hover:bg-surface-alt"
+                        }`}
+                      >
+                        <span>{option}</span>
+                        {isSelected && <span aria-hidden>✓</span>}
+                      </button>
+                    );
+                  })}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
