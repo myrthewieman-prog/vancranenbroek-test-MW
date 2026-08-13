@@ -55,138 +55,146 @@ export const clientAttention: string[] = [
   "Mediabudget is voor 65% besteed bij 66% van de looptijd — pacing ligt op schema.",
 ];
 
-export type WeeklySpend = {
-  week: string;
-  "Google Ads": number;
-  Meta: number;
-};
-
-export const weeklySpend: WeeklySpend[] = [
-  { week: "Wk 27", "Google Ads": 1200, Meta: 950 },
-  { week: "Wk 28", "Google Ads": 1400, Meta: 1150 },
-  { week: "Wk 29", "Google Ads": 1550, Meta: 1300 },
-  { week: "Wk 30", "Google Ads": 1650, Meta: 1400 },
-  { week: "Wk 31", "Google Ads": 1800, Meta: 1550 },
-  { week: "Wk 32", "Google Ads": 1900, Meta: 1750 },
-];
-
-export type BudgetPacing = {
-  totalMediaspend: number;
-  spent: number;
-  startDate: string;
-  endDate: string;
-  today: string;
-  daysTotal: number;
-  daysElapsed: number;
-};
-
-export const paidOverview: BudgetPacing = {
-  totalMediaspend: 27000,
-  spent: 17600,
-  startDate: "1-7-2026",
-  endDate: "31-8-2026",
-  today: "10-8-2026",
-  daysTotal: 62,
-  daysElapsed: 41,
-};
-
-export type KpiTargetRow = {
-  metric: string;
-  achieved: number;
-  target: number;
-  format: "currency" | "number" | "percent" | "decimal";
-  lowerIsBetter?: boolean;
-  neutral?: boolean;
-};
-
-export type ChannelData = {
+export type Stat = {
+  value: string;
   label: string;
-  budgetPacing: BudgetPacing;
-  kpiRows: KpiTargetRow[];
-  campaigns: Record<string, string | number>[];
-  campaignColumns: { key: string; label: string; align?: "left" | "right"; format?: "currency" | "number" | "percent" }[];
+  deltaPct?: number;
+  deltaTone?: "good" | "bad";
 };
 
-export const googleAds: ChannelData = {
-  label: "Google Ads",
-  budgetPacing: {
-    totalMediaspend: 15000,
-    spent: 9500,
-    startDate: "1-7-2026",
-    endDate: "31-8-2026",
-    today: "10-8-2026",
-    daysTotal: 62,
-    daysElapsed: 41,
-  },
-  kpiRows: [
-    { metric: "Budget", achieved: 9500, target: 15000, format: "currency", neutral: true },
-    { metric: "CPM", achieved: 15.32, target: 18.0, format: "currency", lowerIsBetter: true },
-    { metric: "Impressies", achieved: 620000, target: 900000, format: "number" },
-    { metric: "CPC", achieved: 0.76, target: 0.9, format: "currency", lowerIsBetter: true },
-    { metric: "Kliks", achieved: 12450, target: 16500, format: "number" },
-    { metric: "CTR", achieved: 2.01, target: 1.8, format: "percent" },
-    { metric: "Conversies", achieved: 812, target: 950, format: "number" },
-    { metric: "CPA", achieved: 11.7, target: 15.0, format: "currency", lowerIsBetter: true },
-    { metric: "Conversieratio", achieved: 6.52, target: 5.5, format: "percent" },
-  ],
-  campaignColumns: [
-    { key: "campagne", label: "Campagne" },
-    { key: "netwerk", label: "Netwerk" },
-    { key: "kosten", label: "Kosten", align: "right", format: "currency" },
-    { key: "impressies", label: "Impressies", align: "right", format: "number" },
-    { key: "kliks", label: "Kliks", align: "right", format: "number" },
-    { key: "ctr", label: "CTR", align: "right", format: "percent" },
-    { key: "conversies", label: "Conversies", align: "right", format: "number" },
-    { key: "cpa", label: "CPA", align: "right", format: "currency" },
-  ],
-  campaigns: [
-    { campagne: "Search — Tuinseizoen Barbecues", netwerk: "Zoeknetwerk", kosten: 2850, impressies: 148000, kliks: 4120, ctr: 2.78, conversies: 298, cpa: 9.56 },
-    { campagne: "Search — Klussen Gereedschap", netwerk: "Zoeknetwerk", kosten: 2100, impressies: 121000, kliks: 3340, ctr: 2.76, conversies: 241, cpa: 8.71 },
-    { campagne: "Search — Merknaam", netwerk: "Zoeknetwerk", kosten: 850, impressies: 38000, kliks: 2980, ctr: 7.84, conversies: 189, cpa: 4.5 },
-    { campagne: "Performance Max — Wonen", netwerk: "Performance Max", kosten: 2400, impressies: 268000, kliks: 1680, ctr: 0.63, conversies: 62, cpa: 38.71 },
-    { campagne: "Search — Dieren & Voeding", netwerk: "Zoeknetwerk", kosten: 1300, impressies: 45000, kliks: 330, ctr: 0.73, conversies: 22, cpa: 59.09 },
-  ],
+export const monitorHeader = {
+  eyebrow: "Campagnedashboard",
+  title: "Van Cranenbroek – Performance",
+  periodLabel: "Week van 10 aug – 16 aug 2026",
+  note: "laatste week is mogelijk incompleet",
 };
 
-export const meta: ChannelData = {
-  label: "Meta",
-  budgetPacing: {
-    totalMediaspend: 12000,
-    spent: 8100,
-    startDate: "1-7-2026",
-    endDate: "31-8-2026",
-    today: "10-8-2026",
-    daysTotal: 62,
-    daysElapsed: 41,
-  },
-  kpiRows: [
-    { metric: "Budget", achieved: 8100, target: 12000, format: "currency", neutral: true },
-    { metric: "CPM", achieved: 15.0, target: 16.5, format: "currency", lowerIsBetter: true },
-    { metric: "Impressies", achieved: 540000, target: 750000, format: "number" },
-    { metric: "Bereik", achieved: 210000, target: 280000, format: "number" },
-    { metric: "Frequentie", achieved: 2.6, target: 3.0, format: "decimal", neutral: true },
-    { metric: "CPC", achieved: 0.82, target: 1.0, format: "currency", lowerIsBetter: true },
-    { metric: "Kliks", achieved: 9870, target: 12000, format: "number" },
-    { metric: "CTR", achieved: 1.83, target: 1.6, format: "percent" },
-    { metric: "Conversies", achieved: 505, target: 600, format: "number" },
-    { metric: "CPA", achieved: 16.04, target: 20.0, format: "currency", lowerIsBetter: true },
-    { metric: "Conversieratio", achieved: 5.12, target: 5.0, format: "percent" },
-  ],
-  campaignColumns: [
-    { key: "campagne", label: "Campagne" },
-    { key: "doelstelling", label: "Doelstelling" },
-    { key: "spend", label: "Amount spent", align: "right", format: "currency" },
-    { key: "impressies", label: "Impressions", align: "right", format: "number" },
-    { key: "bereik", label: "Reach", align: "right", format: "number" },
-    { key: "kliks", label: "Kliks", align: "right", format: "number" },
-    { key: "ctr", label: "CTR", align: "right", format: "percent" },
-    { key: "conversies", label: "Conversies", align: "right", format: "number" },
-  ],
-  campaigns: [
-    { campagne: "Prospecting — Tuinmeubelen", doelstelling: "Verkeer", spend: 2200, impressies: 165000, bereik: 72000, kliks: 2850, ctr: 1.73, conversies: 132 },
-    { campagne: "Retargeting — Vloeren & Verf", doelstelling: "Conversies", spend: 1450, impressies: 68000, bereik: 24000, kliks: 2210, ctr: 3.25, conversies: 178 },
-    { campagne: "Awareness — Zomeractie Dieren", doelstelling: "Bereik", spend: 1600, impressies: 172000, bereik: 78000, kliks: 1890, ctr: 1.1, conversies: 61 },
-    { campagne: "Conversie — Outdoor Cooking", doelstelling: "Conversies", spend: 1550, impressies: 78000, bereik: 22000, kliks: 1640, ctr: 2.1, conversies: 94 },
-    { campagne: "Retargeting — Klussen Gereedschap", doelstelling: "Conversies", spend: 1300, impressies: 57000, bereik: 14000, kliks: 1280, ctr: 2.25, conversies: 40 },
-  ],
+export const monitorAlert =
+  "Meta wordt alleen op CPA gerapporteerd, geen ROAS – de drie funnels (Conversie/Add to cart/Verkeer) zijn sowieso niet vergelijkbaar op omzet. Instagram en Facebook zijn per campagne samengevoegd op weekniveau; later uit te splitsen per platform. Cijfers hieronder zijn week-op-week.";
+
+export type MonitorCampaign = {
+  campagne: string;
+  kosten: number;
+  conversies: number;
+  convWaarde: number;
+};
+
+export type SubChannel = {
+  name: string;
+  kosten: number;
+  conversies: number;
+  convWaarde: number;
+  roas: number;
+  kostenPerConv: number;
+  campaigns: MonitorCampaign[];
+};
+
+export const monitorGoogleAds = {
+  accountStats: [
+    { value: "€2.599,77", label: "Kosten" },
+    { value: "152,4", label: "Conversies", deltaPct: -57, deltaTone: "bad" },
+    { value: "€4.275,60", label: "Conv.waarde", deltaPct: -62, deltaTone: "bad" },
+    { value: "1,64x", label: "ROAS (netto)", deltaPct: -38, deltaTone: "bad" },
+  ] as Stat[],
+  subChannels: [
+    {
+      name: "Shopping",
+      kosten: 2341.57,
+      conversies: 134.8,
+      convWaarde: 3545.19,
+      roas: 1.51,
+      kostenPerConv: 17.38,
+      campaigns: [
+        { campagne: "Shopping — Tuin & Buiten", kosten: 1450.0, conversies: 84.2, convWaarde: 2210.5 },
+        { campagne: "Shopping — Wonen", kosten: 891.57, conversies: 50.6, convWaarde: 1334.69 },
+      ],
+    },
+    {
+      name: "Zoeken",
+      kosten: 170.57,
+      conversies: 12.7,
+      convWaarde: 566.0,
+      roas: 3.32,
+      kostenPerConv: 13.4,
+      campaigns: [
+        { campagne: "Zoeken — Merknaam", kosten: 45.2, conversies: 6.1, convWaarde: 310.0 },
+        { campagne: "Zoeken — Generiek", kosten: 125.37, conversies: 6.6, convWaarde: 256.0 },
+      ],
+    },
+    {
+      name: "Performance Max",
+      kosten: 87.63,
+      conversies: 5.0,
+      convWaarde: 164.4,
+      roas: 1.88,
+      kostenPerConv: 17.7,
+      campaigns: [{ campagne: "PMax — Algemeen", kosten: 87.63, conversies: 5.0, convWaarde: 164.4 }],
+    },
+  ] as SubChannel[],
+};
+
+export type MonitorFunnelCampaign = {
+  campagne: string;
+  kosten: number;
+  volume: number;
+};
+
+export type MonitorFunnel = {
+  badge: string;
+  badgeColor: "accent" | "amber" | "blue";
+  title: string;
+  volumeLabel: string;
+  stats: Stat[];
+  campaigns: MonitorFunnelCampaign[];
+};
+
+export const monitorMeta = {
+  subtitle: "3 losse doelstellingen – niet optelbaar",
+  funnels: [
+    {
+      badge: "Conversie",
+      badgeColor: "accent",
+      title: "Echte conversies in de webshop (Meta-attributie)",
+      volumeLabel: "Conversies",
+      stats: [
+        { value: "€844,27", label: "Kosten", deltaPct: -58, deltaTone: "bad" },
+        { value: "57", label: "Conversies", deltaPct: -53, deltaTone: "bad" },
+        { value: "€14,81", label: "Kosten/conv.", deltaPct: -11, deltaTone: "good" },
+      ],
+      campaigns: [
+        { campagne: "Retargeting — Vloeren & Verf", kosten: 380.0, volume: 28 },
+        { campagne: "Conversie — Tuinmeubelen", kosten: 464.27, volume: 29 },
+      ],
+    },
+    {
+      badge: "Add to cart",
+      badgeColor: "amber",
+      title: "Soft conversie – toegevoegd aan winkelwagen",
+      volumeLabel: "Add to carts",
+      stats: [
+        { value: "€201,73", label: "Kosten", deltaPct: -59, deltaTone: "bad" },
+        { value: "130", label: "Add to carts", deltaPct: -57, deltaTone: "bad" },
+        { value: "€1,55", label: "Kosten/ATC", deltaPct: -5, deltaTone: "good" },
+      ],
+      campaigns: [
+        { campagne: "ATC — Klussen Gereedschap", kosten: 96.5, volume: 62 },
+        { campagne: "ATC — Dieren & Voeding", kosten: 105.23, volume: 68 },
+      ],
+    },
+    {
+      badge: "Verkeer",
+      badgeColor: "blue",
+      title: "Landingspagina-weergaven",
+      volumeLabel: "LP-weergaven",
+      stats: [
+        { value: "€87,57", label: "Kosten", deltaPct: -60, deltaTone: "bad" },
+        { value: "1.299", label: "LP-weergaven", deltaPct: -61, deltaTone: "bad" },
+        { value: "€0,07", label: "Kosten/weergave", deltaPct: 4, deltaTone: "bad" },
+      ],
+      campaigns: [
+        { campagne: "Prospecting — Outdoor Cooking", kosten: 40.0, volume: 610 },
+        { campagne: "Prospecting — Wonen Algemeen", kosten: 47.57, volume: 689 },
+      ],
+    },
+  ] as MonitorFunnel[],
 };

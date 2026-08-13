@@ -17,6 +17,8 @@
   --series-3: #1baf7a;
   --good: #0b7a3d;
   --serious: #d0592e;
+  --badge-amber: #92650a;
+  --badge-blue: #1d4ed8;
 }
 
 @theme inline {
