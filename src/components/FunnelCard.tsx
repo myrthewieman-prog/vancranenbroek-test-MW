@@ -8,7 +8,13 @@ const BADGE_STYLES: Record<MonitorFunnel["badgeColor"], string> = {
   blue: "bg-[var(--badge-blue)]",
 };
 
-export function FunnelCard({ funnel }: { funnel: MonitorFunnel }) {
+export function FunnelCard({
+  funnel,
+  deltaSuffix = "vorige week",
+}: {
+  funnel: MonitorFunnel;
+  deltaSuffix?: string;
+}) {
   const columns = [
     { key: "campagne", label: "Campagne" },
     { key: "kosten", label: "Kosten", align: "right" as const, format: "currency" as const },
@@ -28,7 +34,7 @@ export function FunnelCard({ funnel }: { funnel: MonitorFunnel }) {
 
       <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
         {funnel.stats.map((stat) => (
-          <StatBlock key={stat.label} stat={stat} />
+          <StatBlock key={stat.label} stat={stat} deltaSuffix={deltaSuffix} />
         ))}
       </div>
 

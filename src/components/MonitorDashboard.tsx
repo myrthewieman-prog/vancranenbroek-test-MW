@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { AlertCallout } from "@/components/AlertCallout";
 import { BrandSplitCard } from "@/components/BrandSplitCard";
 import { CampaignsDisclosure } from "@/components/CampaignsDisclosure";
@@ -9,12 +12,14 @@ import { StatBlock } from "@/components/StatBlock";
 import { SubChannelCard } from "@/components/SubChannelCard";
 import { TrendChart } from "@/components/TrendChart";
 import {
-  monitorAlert,
   monitorGoogleAds,
   monitorGoogleAdsBrandSplit,
   monitorGoogleAdsTrend,
   monitorHeader,
   monitorMeta,
+  monitorMetaTrend,
+  monitorPeriodMeta,
+  type MonitorPeriod,
 } from "@/lib/mock-data";
 
 function MutedLabel({ children }: { children: React.ReactNode }) {
@@ -24,6 +29,12 @@ function MutedLabel({ children }: { children: React.ReactNode }) {
 }
 
 export function MonitorDashboard() {
+  const [period, setPeriod] = useState<MonitorPeriod>("week");
+  const periodMeta = monitorPeriodMeta[period];
+  const googleAds = monitorGoogleAds[period];
+  const brandSplit = monitorGoogleAdsBrandSplit[period];
+  const meta = monitorMeta[period];
+
   const allCampaignsColumns = [
     { key: "netwerk", label: "Netwerk" },
     { key: "campagne", label: "Campagne" },
@@ -31,7 +42,7 @@ export function MonitorDashboard() {
     { key: "conversies", label: "Conversies", align: "right" as const, format: "number" as const },
     { key: "convWaarde", label: "Conv.waarde", align: "right" as const, format: "currency" as const },
   ];
-  const allCampaignsRows = monitorGoogleAds.subChannels.flatMap((channel) =>
+  const allCampaignsRows = googleAds.subChannels.flatMap((channel) =>
     channel.campaigns.map((c) => ({ netwerk: channel.name, ...c }))
   );
 
@@ -40,24 +51,27 @@ export function MonitorDashboard() {
       <MonitorHeroHeader
         eyebrow={monitorHeader.eyebrow}
         title={monitorHeader.title}
-        periodLabel={monitorHeader.periodLabel}
-        note={monitorHeader.note}
+        period={period}
+        onPeriodChange={setPeriod}
+        subtitlePeriod={periodMeta.subtitlePeriod}
+        buttonLabel={periodMeta.buttonLabel}
+        note={periodMeta.note}
       />
 
       <div className="mt-6">
-        <AlertCallout>{monitorAlert}</AlertCallout>
+        <AlertCallout>{periodMeta.alert}</AlertCallout>
       </div>
 
       <section className="mt-10">
         <ChannelSectionHeading title="Google Ads" subtitle="Account totaal" />
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {monitorGoogleAds.accountStats.map((stat) => (
-            <StatBlock key={stat.label} stat={stat} boxed />
+          {googleAds.accountStats.map((stat) => (
+            <StatBlock key={stat.label} stat={stat} boxed deltaSuffix={periodMeta.deltaSuffix} />
           ))}
         </div>
 
         <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
-          {monitorGoogleAds.subChannels.map((channel) => (
+          {googleAds.subChannels.map((channel) => (
             <SubChannelCard key={channel.name} channel={channel} />
           ))}
         </div>
@@ -65,8 +79,8 @@ export function MonitorDashboard() {
         <div className="mt-6">
           <MutedLabel>Brand vs. non-brand (op naam &quot;brand&quot; in campagne)</MutedLabel>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {monitorGoogleAdsBrandSplit.map((split) => (
-              <BrandSplitCard key={split.name} data={split} />
+            {brandSplit.map((split) => (
+              <BrandSplitCard key={split.name} data={split} deltaSuffix={periodMeta.deltaSuffix} />
             ))}
           </div>
         </div>
@@ -116,10 +130,10 @@ export function MonitorDashboard() {
       </section>
 
       <section className="mt-10">
-        <ChannelSectionHeading title="Meta Ads" subtitle={monitorMeta.subtitle} />
+        <ChannelSectionHeading title="Meta Ads" subtitle={meta.subtitle} />
         <div className="space-y-4">
-          {monitorMeta.funnels.map((funnel) => (
-            <FunnelCard key={funnel.badge} funnel={funnel} />
+          {meta.funnels.map((funnel) => (
+            <FunnelCard key={funnel.badge} funnel={funnel} deltaSuffix={periodMeta.deltaSuffix} />
           ))}
         </div>
 
@@ -128,7 +142,7 @@ export function MonitorDashboard() {
             Trend – laatste 7 weken, per doelstelling (los van de week/maand-keuze hierboven)
           </MutedLabel>
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-            {monitorMeta.funnels.map((funnel) => {
+            {meta.funnels.map((funnel) => {
               const badgeColorVar =
                 funnel.badgeColor === "accent"
                   ? "var(--accent)"
@@ -138,11 +152,12 @@ export function MonitorDashboard() {
               const volumeLabelLower = funnel.volumeLabel.startsWith("LP")
                 ? funnel.volumeLabel
                 : funnel.volumeLabel.toLowerCase();
+              const trend = monitorMetaTrend[funnel.badge];
               return (
                 <div key={funnel.badge} className="contents">
                   <TrendChart
                     title={`${funnel.badge} – kosten & ${volumeLabelLower}`}
-                    data={funnel.trend}
+                    data={trend}
                     showLegend
                     series={[
                       { key: "kosten", name: "Kosten (€)", type: "bar", color: badgeColorVar, yAxis: "left" },
@@ -151,7 +166,7 @@ export function MonitorDashboard() {
                   />
                   <TrendChart
                     title={`${funnel.badge} – kosten/${funnel.ratioLabel}`}
-                    data={funnel.trend.map((p) => ({
+                    data={trend.map((p) => ({
                       week: p.week,
                       ratio: Number(p.kosten) / Number(p.volume),
                     }))}

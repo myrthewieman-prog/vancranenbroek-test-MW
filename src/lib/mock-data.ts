@@ -62,15 +62,34 @@ export type Stat = {
   deltaTone?: "good" | "bad";
 };
 
+export type MonitorPeriod = "week" | "maand";
+
 export const monitorHeader = {
   eyebrow: "Campagnedashboard",
   title: "Van Cranenbroek – Performance",
-  periodLabel: "Week van 10 aug – 16 aug 2026",
-  note: "laatste week is mogelijk incompleet",
 };
 
-export const monitorAlert =
-  "Meta wordt alleen op CPA gerapporteerd, geen ROAS – de drie funnels (Conversie/Add to cart/Verkeer) zijn sowieso niet vergelijkbaar op omzet. Instagram en Facebook zijn per campagne samengevoegd op weekniveau; later uit te splitsen per platform. Cijfers hieronder zijn week-op-week.";
+export const monitorPeriodMeta: Record<
+  MonitorPeriod,
+  { subtitlePeriod: string; buttonLabel: string; note: string; deltaSuffix: string; alert: string }
+> = {
+  week: {
+    subtitlePeriod: "Week van 10 aug – 16 aug 2026",
+    buttonLabel: "Week van 10 aug – 16 aug 2026",
+    note: "laatste week is mogelijk incompleet",
+    deltaSuffix: "vorige week",
+    alert:
+      "Meta wordt alleen op CPA gerapporteerd, geen ROAS – de drie funnels (Conversie/Add to cart/Verkeer) zijn sowieso niet vergelijkbaar op omzet. Instagram en Facebook zijn per campagne samengevoegd op weekniveau; later uit te splitsen per platform. Cijfers hieronder zijn week-op-week.",
+  },
+  maand: {
+    subtitlePeriod: "Augustus 2026",
+    buttonLabel: "Augustus 2026 (t/m nu – incompleet)",
+    note: "deze maand loopt nog, cijfers zijn incompleet",
+    deltaSuffix: "vorige maand",
+    alert:
+      "Google levert zelf geen dagcijfers – de maandtotalen zijn opgebouwd door elke wekelijkse Google-rapportage toe te wijzen aan de maand waarin de meeste dagen van die week vallen (max. ±2 dagen ruis rond een maandgrens). Meta's maandcijfers zijn wel exact per kalenderdag berekend. Augustus loopt nog (t/m dit dashboard bijgewerkt is) – vergelijk die maand met terughoudendheid tegenover de volledige maand juli.",
+  },
+};
 
 export type MonitorCampaign = {
   campagne: string;
@@ -89,48 +108,93 @@ export type SubChannel = {
   campaigns: MonitorCampaign[];
 };
 
-export const monitorGoogleAds = {
-  accountStats: [
-    { value: "€2.599,77", label: "Kosten" },
-    { value: "152,4", label: "Conversies", deltaPct: -57, deltaTone: "bad" },
-    { value: "€4.275,60", label: "Conv.waarde", deltaPct: -62, deltaTone: "bad" },
-    { value: "1,64x", label: "ROAS (netto)", deltaPct: -38, deltaTone: "bad" },
-  ] as Stat[],
-  subChannels: [
-    {
-      name: "Shopping",
-      kosten: 2341.57,
-      conversies: 134.8,
-      convWaarde: 3545.19,
-      roas: 1.51,
-      kostenPerConv: 17.38,
-      campaigns: [
-        { campagne: "Shopping — Tuin & Buiten", kosten: 1450.0, conversies: 84.2, convWaarde: 2210.5 },
-        { campagne: "Shopping — Wonen", kosten: 891.57, conversies: 50.6, convWaarde: 1334.69 },
-      ],
-    },
-    {
-      name: "Zoeken",
-      kosten: 170.57,
-      conversies: 12.7,
-      convWaarde: 566.0,
-      roas: 3.32,
-      kostenPerConv: 13.4,
-      campaigns: [
-        { campagne: "Zoeken — Merknaam", kosten: 45.2, conversies: 6.1, convWaarde: 310.0 },
-        { campagne: "Zoeken — Generiek", kosten: 125.37, conversies: 6.6, convWaarde: 256.0 },
-      ],
-    },
-    {
-      name: "Performance Max",
-      kosten: 87.63,
-      conversies: 5.0,
-      convWaarde: 164.4,
-      roas: 1.88,
-      kostenPerConv: 17.7,
-      campaigns: [{ campagne: "PMax — Algemeen", kosten: 87.63, conversies: 5.0, convWaarde: 164.4 }],
-    },
-  ] as SubChannel[],
+export const monitorGoogleAds: Record<MonitorPeriod, { accountStats: Stat[]; subChannels: SubChannel[] }> = {
+  week: {
+    accountStats: [
+      { value: "€2.599,77", label: "Kosten" },
+      { value: "152,4", label: "Conversies", deltaPct: -57, deltaTone: "bad" },
+      { value: "€4.275,60", label: "Conv.waarde", deltaPct: -62, deltaTone: "bad" },
+      { value: "1,64x", label: "ROAS (netto)", deltaPct: -38, deltaTone: "bad" },
+    ],
+    subChannels: [
+      {
+        name: "Shopping",
+        kosten: 2341.57,
+        conversies: 134.8,
+        convWaarde: 3545.19,
+        roas: 1.51,
+        kostenPerConv: 17.38,
+        campaigns: [
+          { campagne: "Shopping — Tuin & Buiten", kosten: 1450.0, conversies: 84.2, convWaarde: 2210.5 },
+          { campagne: "Shopping — Wonen", kosten: 891.57, conversies: 50.6, convWaarde: 1334.69 },
+        ],
+      },
+      {
+        name: "Zoeken",
+        kosten: 170.57,
+        conversies: 12.7,
+        convWaarde: 566.0,
+        roas: 3.32,
+        kostenPerConv: 13.4,
+        campaigns: [
+          { campagne: "Zoeken — Merknaam", kosten: 45.2, conversies: 6.1, convWaarde: 310.0 },
+          { campagne: "Zoeken — Generiek", kosten: 125.37, conversies: 6.6, convWaarde: 256.0 },
+        ],
+      },
+      {
+        name: "Performance Max",
+        kosten: 87.63,
+        conversies: 5.0,
+        convWaarde: 164.4,
+        roas: 1.88,
+        kostenPerConv: 17.7,
+        campaigns: [{ campagne: "PMax — Algemeen", kosten: 87.63, conversies: 5.0, convWaarde: 164.4 }],
+      },
+    ],
+  },
+  maand: {
+    accountStats: [
+      { value: "€6.848,41", label: "Kosten" },
+      { value: "511,0", label: "Conversies", deltaPct: -73, deltaTone: "bad" },
+      { value: "€15.586,22", label: "Conv.waarde", deltaPct: -74, deltaTone: "bad" },
+      { value: "2,28x", label: "ROAS (netto)", deltaPct: -16, deltaTone: "bad" },
+    ],
+    subChannels: [
+      {
+        name: "Shopping",
+        kosten: 6110.54,
+        conversies: 437.1,
+        convWaarde: 12929.4,
+        roas: 2.12,
+        kostenPerConv: 13.98,
+        campaigns: [
+          { campagne: "Shopping — Tuin & Buiten", kosten: 3800.0, conversies: 265.0, convWaarde: 7800.0 },
+          { campagne: "Shopping — Wonen", kosten: 2310.54, conversies: 172.1, convWaarde: 5129.4 },
+        ],
+      },
+      {
+        name: "Zoeken",
+        kosten: 477.32,
+        conversies: 63.0,
+        convWaarde: 2238.81,
+        roas: 4.69,
+        kostenPerConv: 7.58,
+        campaigns: [
+          { campagne: "Zoeken — Merknaam", kosten: 130.0, conversies: 22.0, convWaarde: 950.0 },
+          { campagne: "Zoeken — Generiek", kosten: 347.32, conversies: 41.0, convWaarde: 1288.81 },
+        ],
+      },
+      {
+        name: "Performance Max",
+        kosten: 260.56,
+        conversies: 11.0,
+        convWaarde: 418.01,
+        roas: 1.6,
+        kostenPerConv: 23.8,
+        campaigns: [{ campagne: "PMax — Algemeen", kosten: 260.56, conversies: 11.0, convWaarde: 418.01 }],
+      },
+    ],
+  },
 };
 
 export type BrandSplit = {
@@ -144,10 +208,16 @@ export type BrandSplit = {
   deltaTone: "good" | "bad";
 };
 
-export const monitorGoogleAdsBrandSplit: BrandSplit[] = [
-  { name: "Brand", kosten: 193.77, conversies: 11.8, convWaarde: 488.11, roas: 2.52, kostenPerConv: 16.37, deltaPct: 152, deltaTone: "bad" },
-  { name: "Non-brand", kosten: 2405.99, conversies: 140.6, convWaarde: 3787.48, roas: 1.57, kostenPerConv: 17.11, deltaPct: 36, deltaTone: "bad" },
-];
+export const monitorGoogleAdsBrandSplit: Record<MonitorPeriod, BrandSplit[]> = {
+  week: [
+    { name: "Brand", kosten: 193.77, conversies: 11.8, convWaarde: 488.11, roas: 2.52, kostenPerConv: 16.37, deltaPct: 152, deltaTone: "bad" },
+    { name: "Non-brand", kosten: 2405.99, conversies: 140.6, convWaarde: 3787.48, roas: 1.57, kostenPerConv: 17.11, deltaPct: 36, deltaTone: "bad" },
+  ],
+  maand: [
+    { name: "Brand", kosten: 488.43, conversies: 57.3, convWaarde: 2443.62, roas: 5.0, kostenPerConv: 8.53, deltaPct: 40, deltaTone: "bad" },
+    { name: "Non-brand", kosten: 6359.98, conversies: 453.7, convWaarde: 13142.6, roas: 2.07, kostenPerConv: 14.02, deltaPct: 18, deltaTone: "bad" },
+  ],
+};
 
 export type WeekPoint = Record<string, number | string>;
 
@@ -175,86 +245,144 @@ export type MonitorFunnel = {
   ratioLabel: string;
   stats: Stat[];
   campaigns: MonitorFunnelCampaign[];
-  trend: WeekPoint[];
 };
 
-export const monitorMeta = {
-  subtitle: "3 losse doelstellingen – niet optelbaar",
-  funnels: [
-    {
-      badge: "Conversie",
-      badgeColor: "accent",
-      title: "Echte conversies in de webshop (Meta-attributie)",
-      volumeLabel: "Conversies",
-      ratioLabel: "conv.",
-      stats: [
-        { value: "€844,27", label: "Kosten", deltaPct: -58, deltaTone: "bad" },
-        { value: "57", label: "Conversies", deltaPct: -53, deltaTone: "bad" },
-        { value: "€14,81", label: "Kosten/conv.", deltaPct: -11, deltaTone: "good" },
-      ],
-      campaigns: [
-        { campagne: "Retargeting — Vloeren & Verf", kosten: 380.0, volume: 28 },
-        { campagne: "Conversie — Tuinmeubelen", kosten: 464.27, volume: 29 },
-      ],
-      trend: [
-        { week: "29 jun", kosten: 1400, volume: 65 },
-        { week: "6 jul", kosten: 2000, volume: 118 },
-        { week: "13 jul", kosten: 1950, volume: 128 },
-        { week: "20 jul", kosten: 1900, volume: 122 },
-        { week: "27 jul", kosten: 1950, volume: 96 },
-        { week: "3 aug", kosten: 2010.2, volume: 121.3 },
-        { week: "10 aug", kosten: 844.27, volume: 57 },
-      ],
-    },
-    {
-      badge: "Add to cart",
-      badgeColor: "amber",
-      title: "Soft conversie – toegevoegd aan winkelwagen",
-      volumeLabel: "Add to carts",
-      ratioLabel: "ATC",
-      stats: [
-        { value: "€201,73", label: "Kosten", deltaPct: -59, deltaTone: "bad" },
-        { value: "130", label: "Add to carts", deltaPct: -57, deltaTone: "bad" },
-        { value: "€1,55", label: "Kosten/ATC", deltaPct: -5, deltaTone: "good" },
-      ],
-      campaigns: [
-        { campagne: "ATC — Klussen Gereedschap", kosten: 96.5, volume: 62 },
-        { campagne: "ATC — Dieren & Voeding", kosten: 105.23, volume: 68 },
-      ],
-      trend: [
-        { week: "29 jun", kosten: 300, volume: 140 },
-        { week: "6 jul", kosten: 460, volume: 290 },
-        { week: "13 jul", kosten: 480, volume: 300 },
-        { week: "20 jul", kosten: 470, volume: 295 },
-        { week: "27 jul", kosten: 460, volume: 270 },
-        { week: "3 aug", kosten: 492.0, volume: 302.3 },
-        { week: "10 aug", kosten: 201.73, volume: 130 },
-      ],
-    },
-    {
-      badge: "Verkeer",
-      badgeColor: "blue",
-      title: "Landingspagina-weergaven",
-      volumeLabel: "LP-weergaven",
-      ratioLabel: "weergave",
-      stats: [
-        { value: "€87,57", label: "Kosten", deltaPct: -60, deltaTone: "bad" },
-        { value: "1.299", label: "LP-weergaven", deltaPct: -61, deltaTone: "bad" },
-        { value: "€0,07", label: "Kosten/weergave", deltaPct: 4, deltaTone: "bad" },
-      ],
-      campaigns: [
-        { campagne: "Prospecting — Outdoor Cooking", kosten: 40.0, volume: 610 },
-        { campagne: "Prospecting — Wonen Algemeen", kosten: 47.57, volume: 689 },
-      ],
-      trend: [
-        { week: "29 jun", kosten: 150, volume: 1500 },
-        { week: "6 jul", kosten: 205, volume: 3000 },
-        { week: "13 jul", kosten: 210, volume: 3100 },
-        { week: "20 jul", kosten: 205, volume: 3000 },
-        { week: "27 jul", kosten: 205, volume: 3050 },
-        { week: "3 aug", kosten: 218.9, volume: 3330.8 },
-        { week: "10 aug", kosten: 87.57, volume: 1299 },
-      ],
-    },
-  ] as MonitorFunnel[],
+// Trend reeksen zijn onafhankelijk van de week/maand-keuze (zie notitie bij de trendgrafieken).
+export const monitorMetaTrend: Record<string, WeekPoint[]> = {
+  Conversie: [
+    { week: "29 jun", kosten: 1400, volume: 65 },
+    { week: "6 jul", kosten: 2000, volume: 118 },
+    { week: "13 jul", kosten: 1950, volume: 128 },
+    { week: "20 jul", kosten: 1900, volume: 122 },
+    { week: "27 jul", kosten: 1950, volume: 96 },
+    { week: "3 aug", kosten: 2010.2, volume: 121.3 },
+    { week: "10 aug", kosten: 844.27, volume: 57 },
+  ],
+  "Add to cart": [
+    { week: "29 jun", kosten: 300, volume: 140 },
+    { week: "6 jul", kosten: 460, volume: 290 },
+    { week: "13 jul", kosten: 480, volume: 300 },
+    { week: "20 jul", kosten: 470, volume: 295 },
+    { week: "27 jul", kosten: 460, volume: 270 },
+    { week: "3 aug", kosten: 492.0, volume: 302.3 },
+    { week: "10 aug", kosten: 201.73, volume: 130 },
+  ],
+  Verkeer: [
+    { week: "29 jun", kosten: 150, volume: 1500 },
+    { week: "6 jul", kosten: 205, volume: 3000 },
+    { week: "13 jul", kosten: 210, volume: 3100 },
+    { week: "20 jul", kosten: 205, volume: 3000 },
+    { week: "27 jul", kosten: 205, volume: 3050 },
+    { week: "3 aug", kosten: 218.9, volume: 3330.8 },
+    { week: "10 aug", kosten: 87.57, volume: 1299 },
+  ],
+};
+
+export const monitorMeta: Record<MonitorPeriod, { subtitle: string; funnels: MonitorFunnel[] }> = {
+  week: {
+    subtitle: "3 losse doelstellingen – niet optelbaar",
+    funnels: [
+      {
+        badge: "Conversie",
+        badgeColor: "accent",
+        title: "Echte conversies in de webshop (Meta-attributie)",
+        volumeLabel: "Conversies",
+        ratioLabel: "conv.",
+        stats: [
+          { value: "€844,27", label: "Kosten", deltaPct: -58, deltaTone: "bad" },
+          { value: "57", label: "Conversies", deltaPct: -53, deltaTone: "bad" },
+          { value: "€14,81", label: "Kosten/conv.", deltaPct: -11, deltaTone: "good" },
+        ],
+        campaigns: [
+          { campagne: "Retargeting — Vloeren & Verf", kosten: 380.0, volume: 28 },
+          { campagne: "Conversie — Tuinmeubelen", kosten: 464.27, volume: 29 },
+        ],
+      },
+      {
+        badge: "Add to cart",
+        badgeColor: "amber",
+        title: "Soft conversie – toegevoegd aan winkelwagen",
+        volumeLabel: "Add to carts",
+        ratioLabel: "ATC",
+        stats: [
+          { value: "€201,73", label: "Kosten", deltaPct: -59, deltaTone: "bad" },
+          { value: "130", label: "Add to carts", deltaPct: -57, deltaTone: "bad" },
+          { value: "€1,55", label: "Kosten/ATC", deltaPct: -5, deltaTone: "good" },
+        ],
+        campaigns: [
+          { campagne: "ATC — Klussen Gereedschap", kosten: 96.5, volume: 62 },
+          { campagne: "ATC — Dieren & Voeding", kosten: 105.23, volume: 68 },
+        ],
+      },
+      {
+        badge: "Verkeer",
+        badgeColor: "blue",
+        title: "Landingspagina-weergaven",
+        volumeLabel: "LP-weergaven",
+        ratioLabel: "weergave",
+        stats: [
+          { value: "€87,57", label: "Kosten", deltaPct: -60, deltaTone: "bad" },
+          { value: "1.299", label: "LP-weergaven", deltaPct: -61, deltaTone: "bad" },
+          { value: "€0,07", label: "Kosten/weergave", deltaPct: 4, deltaTone: "bad" },
+        ],
+        campaigns: [
+          { campagne: "Prospecting — Outdoor Cooking", kosten: 40.0, volume: 610 },
+          { campagne: "Prospecting — Wonen Algemeen", kosten: 47.57, volume: 689 },
+        ],
+      },
+    ],
+  },
+  maand: {
+    subtitle: "3 losse doelstellingen – niet optelbaar",
+    funnels: [
+      {
+        badge: "Conversie",
+        badgeColor: "accent",
+        title: "Echte conversies in de webshop (Meta-attributie)",
+        volumeLabel: "Conversies",
+        ratioLabel: "conv.",
+        stats: [
+          { value: "€3.245,80", label: "Kosten", deltaPct: -42, deltaTone: "bad" },
+          { value: "218", label: "Conversies", deltaPct: -38, deltaTone: "bad" },
+          { value: "€14,89", label: "Kosten/conv.", deltaPct: -6, deltaTone: "good" },
+        ],
+        campaigns: [
+          { campagne: "Retargeting — Vloeren & Verf", kosten: 1450.0, volume: 98 },
+          { campagne: "Conversie — Tuinmeubelen", kosten: 1795.8, volume: 120 },
+        ],
+      },
+      {
+        badge: "Add to cart",
+        badgeColor: "amber",
+        title: "Soft conversie – toegevoegd aan winkelwagen",
+        volumeLabel: "Add to carts",
+        ratioLabel: "ATC",
+        stats: [
+          { value: "€892,40", label: "Kosten", deltaPct: -39, deltaTone: "bad" },
+          { value: "512", label: "Add to carts", deltaPct: -35, deltaTone: "bad" },
+          { value: "€1,74", label: "Kosten/ATC", deltaPct: -6, deltaTone: "good" },
+        ],
+        campaigns: [
+          { campagne: "ATC — Klussen Gereedschap", kosten: 410.0, volume: 235 },
+          { campagne: "ATC — Dieren & Voeding", kosten: 482.4, volume: 277 },
+        ],
+      },
+      {
+        badge: "Verkeer",
+        badgeColor: "blue",
+        title: "Landingspagina-weergaven",
+        volumeLabel: "LP-weergaven",
+        ratioLabel: "weergave",
+        stats: [
+          { value: "€412,90", label: "Kosten", deltaPct: -41, deltaTone: "bad" },
+          { value: "5.180", label: "LP-weergaven", deltaPct: -39, deltaTone: "bad" },
+          { value: "€0,08", label: "Kosten/weergave", deltaPct: 3, deltaTone: "bad" },
+        ],
+        campaigns: [
+          { campagne: "Prospecting — Outdoor Cooking", kosten: 190.0, volume: 2380 },
+          { campagne: "Prospecting — Wonen Algemeen", kosten: 222.9, volume: 2800 },
+        ],
+      },
+    ],
+  },
 };

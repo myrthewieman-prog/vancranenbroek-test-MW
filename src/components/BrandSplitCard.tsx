@@ -3,7 +3,13 @@ import type { BrandSplit } from "@/lib/mock-data";
 const currencyFormat = new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR" });
 const numberFormat = new Intl.NumberFormat("nl-NL", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
-export function BrandSplitCard({ data }: { data: BrandSplit }) {
+export function BrandSplitCard({
+  data,
+  deltaSuffix = "vorige week",
+}: {
+  data: BrandSplit;
+  deltaSuffix?: string;
+}) {
   const rows = [
     { label: "Kosten", value: currencyFormat.format(data.kosten) },
     { label: "Conversies", value: numberFormat.format(data.conversies) },
@@ -28,7 +34,7 @@ export function BrandSplitCard({ data }: { data: BrandSplit }) {
           data.deltaTone === "good" ? "text-[var(--good)]" : "text-[var(--serious)]"
         }`}
       >
-        {data.deltaPct >= 0 ? "▲" : "▼"} {Math.abs(data.deltaPct)}% vs vorige week
+        {data.deltaPct >= 0 ? "▲" : "▼"} {Math.abs(data.deltaPct)}% vs {deltaSuffix}
       </p>
     </div>
   );

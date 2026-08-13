@@ -1,6 +1,14 @@
 import type { Stat } from "@/lib/mock-data";
 
-export function StatBlock({ stat, boxed }: { stat: Stat; boxed?: boolean }) {
+export function StatBlock({
+  stat,
+  boxed,
+  deltaSuffix = "vorige week",
+}: {
+  stat: Stat;
+  boxed?: boolean;
+  deltaSuffix?: string;
+}) {
   const content = (
     <>
       <p className="text-2xl tabular-nums text-foreground sm:text-[28px]">{stat.value}</p>
@@ -13,7 +21,7 @@ export function StatBlock({ stat, boxed }: { stat: Stat; boxed?: boolean }) {
             stat.deltaTone === "good" ? "text-[var(--good)]" : "text-[var(--serious)]"
           }`}
         >
-          {stat.deltaPct >= 0 ? "▲" : "▼"} {Math.abs(stat.deltaPct)}% vs vorige week
+          {stat.deltaPct >= 0 ? "▲" : "▼"} {Math.abs(stat.deltaPct)}% vs {deltaSuffix}
         </p>
       )}
     </>

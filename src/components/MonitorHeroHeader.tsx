@@ -1,20 +1,22 @@
-"use client";
-
-import { useState } from "react";
+import type { MonitorPeriod } from "@/lib/mock-data";
 
 export function MonitorHeroHeader({
   eyebrow,
   title,
-  periodLabel,
+  period,
+  onPeriodChange,
+  subtitlePeriod,
+  buttonLabel,
   note,
 }: {
   eyebrow: string;
   title: string;
-  periodLabel: string;
+  period: MonitorPeriod;
+  onPeriodChange: (period: MonitorPeriod) => void;
+  subtitlePeriod: string;
+  buttonLabel: string;
   note: string;
 }) {
-  const [period, setPeriod] = useState<"week" | "maand">("week");
-
   return (
     <div
       className="rounded-2xl p-8 sm:p-10"
@@ -33,7 +35,7 @@ export function MonitorHeroHeader({
           </div>
           <h1 className="mt-3 text-3xl text-white sm:text-4xl">{title}</h1>
           <p className="mt-2 text-sm text-[#a9a6c2]">
-            {periodLabel} · {note}
+            {subtitlePeriod} · {note}
           </p>
         </div>
 
@@ -41,7 +43,7 @@ export function MonitorHeroHeader({
           <div className="inline-flex rounded-full bg-white/10 p-1">
             <button
               type="button"
-              onClick={() => setPeriod("week")}
+              onClick={() => onPeriodChange("week")}
               className={`rounded-full px-4 py-1.5 text-sm font-bold transition-colors ${
                 period === "week" ? "bg-white text-[#150f2e]" : "text-[#c9bdf5]"
               }`}
@@ -50,7 +52,7 @@ export function MonitorHeroHeader({
             </button>
             <button
               type="button"
-              onClick={() => setPeriod("maand")}
+              onClick={() => onPeriodChange("maand")}
               className={`rounded-full px-4 py-1.5 text-sm font-bold transition-colors ${
                 period === "maand" ? "bg-white text-[#150f2e]" : "text-[#c9bdf5]"
               }`}
@@ -62,7 +64,7 @@ export function MonitorHeroHeader({
             type="button"
             className="flex items-center gap-2 rounded-full bg-accent px-5 py-2 text-sm font-bold text-white"
           >
-            {periodLabel}
+            {buttonLabel}
             <span aria-hidden>▾</span>
           </button>
         </div>
