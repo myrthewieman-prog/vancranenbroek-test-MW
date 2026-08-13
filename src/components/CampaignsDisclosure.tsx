@@ -1,14 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { DataTable } from "@/components/DataTable";
-
-type Column = {
-  key: string;
-  label: string;
-  align?: "left" | "right";
-  format?: "currency" | "number" | "percent";
-};
+import { DataTable, type Column } from "@/components/DataTable";
 
 export function CampaignsDisclosure({
   label,

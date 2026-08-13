@@ -125,8 +125,11 @@ export const monitorGoogleAds: Record<MonitorPeriod, { accountStats: Stat[]; sub
         roas: 1.51,
         kostenPerConv: 17.38,
         campaigns: [
-          { campagne: "Shopping — Tuin & Buiten", kosten: 1450.0, conversies: 84.2, convWaarde: 2210.5 },
-          { campagne: "Shopping — Wonen", kosten: 891.57, conversies: 50.6, convWaarde: 1334.69 },
+          { campagne: "VC | Shopping | NL | Losse categorieën", kosten: 1650.0, conversies: 118.0, convWaarde: 2650.0 },
+          { campagne: "VC | Shopping | NL - Regulier", kosten: 360.0, conversies: 10.5, convWaarde: 550.0 },
+          { campagne: "VC | Shopping | BE/NL", kosten: 130.0, conversies: 3.8, convWaarde: 200.0 },
+          { campagne: "VC | Shopping | NL | Brand", kosten: 125.0, conversies: 1.8, convWaarde: 120.0 },
+          { campagne: "VC | Shopping | NL | Bestsellers", kosten: 76.57, conversies: 0.7, convWaarde: 25.19 },
         ],
       },
       {
@@ -137,8 +140,9 @@ export const monitorGoogleAds: Record<MonitorPeriod, { accountStats: Stat[]; sub
         roas: 3.32,
         kostenPerConv: 13.4,
         campaigns: [
-          { campagne: "Zoeken — Merknaam", kosten: 45.2, conversies: 6.1, convWaarde: 310.0 },
-          { campagne: "Zoeken — Generiek", kosten: 125.37, conversies: 6.6, convWaarde: 256.0 },
+          { campagne: "VC | Search | Prospecting | NL", kosten: 95.0, conversies: 6.0, convWaarde: 220.0 },
+          { campagne: "VC | Search | Brand | NL", kosten: 50.57, conversies: 5.2, convWaarde: 250.0 },
+          { campagne: "VC | Search | Brand | BE/NL", kosten: 25.0, conversies: 1.5, convWaarde: 96.0 },
         ],
       },
       {
@@ -148,7 +152,7 @@ export const monitorGoogleAds: Record<MonitorPeriod, { accountStats: Stat[]; sub
         convWaarde: 164.4,
         roas: 1.88,
         kostenPerConv: 17.7,
-        campaigns: [{ campagne: "PMax — Algemeen", kosten: 87.63, conversies: 5.0, convWaarde: 164.4 }],
+        campaigns: [{ campagne: "VC | Pmax | NL | Alle producten", kosten: 87.63, conversies: 5.0, convWaarde: 164.4 }],
       },
     ],
   },
@@ -168,8 +172,11 @@ export const monitorGoogleAds: Record<MonitorPeriod, { accountStats: Stat[]; sub
         roas: 2.12,
         kostenPerConv: 13.98,
         campaigns: [
-          { campagne: "Shopping — Tuin & Buiten", kosten: 3800.0, conversies: 265.0, convWaarde: 7800.0 },
-          { campagne: "Shopping — Wonen", kosten: 2310.54, conversies: 172.1, convWaarde: 5129.4 },
+          { campagne: "VC | Shopping | NL | Losse categorieën", kosten: 4387.81, conversies: 312.1, convWaarde: 8968.55 },
+          { campagne: "VC | Shopping | NL - Regulier", kosten: 956.43, conversies: 74.7, convWaarde: 2106.15 },
+          { campagne: "VC | Shopping | BE/NL", kosten: 351.63, conversies: 25.0, convWaarde: 714.87 },
+          { campagne: "VC | Shopping | NL | Brand", kosten: 331.45, conversies: 21.3, convWaarde: 976.9 },
+          { campagne: "VC | Shopping | NL | Bestsellers", kosten: 83.22, conversies: 4.0, convWaarde: 162.93 },
         ],
       },
       {
@@ -180,8 +187,9 @@ export const monitorGoogleAds: Record<MonitorPeriod, { accountStats: Stat[]; sub
         roas: 4.69,
         kostenPerConv: 7.58,
         campaigns: [
-          { campagne: "Zoeken — Merknaam", kosten: 130.0, conversies: 22.0, convWaarde: 950.0 },
-          { campagne: "Zoeken — Generiek", kosten: 347.32, conversies: 41.0, convWaarde: 1288.81 },
+          { campagne: "VC | Search | Prospecting | NL", kosten: 320.33, conversies: 27.0, convWaarde: 772.09 },
+          { campagne: "VC | Search | Brand | NL", kosten: 107.2, conversies: 25.2, convWaarde: 975.25 },
+          { campagne: "VC | Search | Brand | BE/NL", kosten: 49.78, conversies: 10.8, convWaarde: 491.47 },
         ],
       },
       {
@@ -191,7 +199,7 @@ export const monitorGoogleAds: Record<MonitorPeriod, { accountStats: Stat[]; sub
         convWaarde: 418.01,
         roas: 1.6,
         kostenPerConv: 23.8,
-        campaigns: [{ campagne: "PMax — Algemeen", kosten: 260.56, conversies: 11.0, convWaarde: 418.01 }],
+        campaigns: [{ campagne: "VC | Pmax | NL | Alle producten", kosten: 260.56, conversies: 11.0, convWaarde: 418.01 }],
       },
     ],
   },

@@ -1,16 +1,16 @@
-type Column = {
+export type Column = {
   key: string;
   label: string;
   align?: "left" | "right";
-  format?: "currency" | "number" | "percent";
+  format?: "currency" | "number" | "percent" | "multiplier";
 };
 
 const currencyFormat = new Intl.NumberFormat("nl-NL", {
   style: "currency",
   currency: "EUR",
-  maximumFractionDigits: 0,
+  maximumFractionDigits: 2,
 });
-const numberFormat = new Intl.NumberFormat("nl-NL");
+const numberFormat = new Intl.NumberFormat("nl-NL", { maximumFractionDigits: 1 });
 
 function formatCell(value: string | number, format?: Column["format"]) {
   if (typeof value !== "number") return value;
@@ -19,6 +19,8 @@ function formatCell(value: string | number, format?: Column["format"]) {
       return currencyFormat.format(value);
     case "percent":
       return `${value.toLocaleString("nl-NL", { minimumFractionDigits: 2 })}%`;
+    case "multiplier":
+      return `${value.toLocaleString("nl-NL", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}x`;
     case "number":
       return numberFormat.format(value);
     default:

@@ -36,15 +36,21 @@ export function MonitorDashboard() {
   const meta = monitorMeta[period];
 
   const allCampaignsColumns = [
-    { key: "netwerk", label: "Netwerk" },
     { key: "campagne", label: "Campagne" },
     { key: "kosten", label: "Kosten", align: "right" as const, format: "currency" as const },
     { key: "conversies", label: "Conversies", align: "right" as const, format: "number" as const },
     { key: "convWaarde", label: "Conv.waarde", align: "right" as const, format: "currency" as const },
+    { key: "roas", label: "ROAS", align: "right" as const, format: "multiplier" as const },
+    { key: "kostenPerConv", label: "Kosten/conv.", align: "right" as const, format: "currency" as const },
   ];
-  const allCampaignsRows = googleAds.subChannels.flatMap((channel) =>
-    channel.campaigns.map((c) => ({ netwerk: channel.name, ...c }))
-  );
+  const allCampaignsRows = googleAds.subChannels
+    .flatMap((channel) => channel.campaigns)
+    .map((c) => ({
+      ...c,
+      roas: c.convWaarde / c.kosten,
+      kostenPerConv: c.kosten / c.conversies,
+    }))
+    .sort((a, b) => b.kosten - a.kosten);
 
   return (
     <div>
