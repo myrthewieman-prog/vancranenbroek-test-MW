@@ -133,6 +133,34 @@ export const monitorGoogleAds = {
   ] as SubChannel[],
 };
 
+export type BrandSplit = {
+  name: string;
+  kosten: number;
+  conversies: number;
+  convWaarde: number;
+  roas: number;
+  kostenPerConv: number;
+  deltaPct: number;
+  deltaTone: "good" | "bad";
+};
+
+export const monitorGoogleAdsBrandSplit: BrandSplit[] = [
+  { name: "Brand", kosten: 193.77, conversies: 11.8, convWaarde: 488.11, roas: 2.52, kostenPerConv: 16.37, deltaPct: 152, deltaTone: "bad" },
+  { name: "Non-brand", kosten: 2405.99, conversies: 140.6, convWaarde: 3787.48, roas: 1.57, kostenPerConv: 17.11, deltaPct: 36, deltaTone: "bad" },
+];
+
+export type WeekPoint = Record<string, number | string>;
+
+export const monitorGoogleAdsTrend: WeekPoint[] = [
+  { week: "29 jun", kosten: 3800, conversies: 320, convWaarde: 12200, roas: 3.2, account: 13.5, brand: 6.2, nonBrand: 13.8 },
+  { week: "6 jul", kosten: 4600, conversies: 430, convWaarde: 14500, roas: 3.15, account: 11.5, brand: 7.2, nonBrand: 11.6 },
+  { week: "13 jul", kosten: 5900, conversies: 445, convWaarde: 14000, roas: 2.3, account: 15.2, brand: 5.6, nonBrand: 15.3 },
+  { week: "20 jul", kosten: 4600, conversies: 400, convWaarde: 11500, roas: 2.3, account: 12.0, brand: 9.0, nonBrand: 11.7 },
+  { week: "27 jul", kosten: 3500, conversies: 310, convWaarde: 9000, roas: 2.7, account: 11.0, brand: 11.0, nonBrand: 11.0 },
+  { week: "3 aug", kosten: 4300, conversies: 360, convWaarde: 11500, roas: 2.7, account: 11.2, brand: 6.3, nonBrand: 11.2 },
+  { week: "10 aug", kosten: 2599.77, conversies: 152.4, convWaarde: 4275.6, roas: 1.64, account: 17.06, brand: 16.37, nonBrand: 17.11 },
+];
+
 export type MonitorFunnelCampaign = {
   campagne: string;
   kosten: number;
@@ -144,8 +172,10 @@ export type MonitorFunnel = {
   badgeColor: "accent" | "amber" | "blue";
   title: string;
   volumeLabel: string;
+  ratioLabel: string;
   stats: Stat[];
   campaigns: MonitorFunnelCampaign[];
+  trend: WeekPoint[];
 };
 
 export const monitorMeta = {
@@ -156,6 +186,7 @@ export const monitorMeta = {
       badgeColor: "accent",
       title: "Echte conversies in de webshop (Meta-attributie)",
       volumeLabel: "Conversies",
+      ratioLabel: "conv.",
       stats: [
         { value: "€844,27", label: "Kosten", deltaPct: -58, deltaTone: "bad" },
         { value: "57", label: "Conversies", deltaPct: -53, deltaTone: "bad" },
@@ -165,12 +196,22 @@ export const monitorMeta = {
         { campagne: "Retargeting — Vloeren & Verf", kosten: 380.0, volume: 28 },
         { campagne: "Conversie — Tuinmeubelen", kosten: 464.27, volume: 29 },
       ],
+      trend: [
+        { week: "29 jun", kosten: 1400, volume: 65 },
+        { week: "6 jul", kosten: 2000, volume: 118 },
+        { week: "13 jul", kosten: 1950, volume: 128 },
+        { week: "20 jul", kosten: 1900, volume: 122 },
+        { week: "27 jul", kosten: 1950, volume: 96 },
+        { week: "3 aug", kosten: 2010.2, volume: 121.3 },
+        { week: "10 aug", kosten: 844.27, volume: 57 },
+      ],
     },
     {
       badge: "Add to cart",
       badgeColor: "amber",
       title: "Soft conversie – toegevoegd aan winkelwagen",
       volumeLabel: "Add to carts",
+      ratioLabel: "ATC",
       stats: [
         { value: "€201,73", label: "Kosten", deltaPct: -59, deltaTone: "bad" },
         { value: "130", label: "Add to carts", deltaPct: -57, deltaTone: "bad" },
@@ -180,12 +221,22 @@ export const monitorMeta = {
         { campagne: "ATC — Klussen Gereedschap", kosten: 96.5, volume: 62 },
         { campagne: "ATC — Dieren & Voeding", kosten: 105.23, volume: 68 },
       ],
+      trend: [
+        { week: "29 jun", kosten: 300, volume: 140 },
+        { week: "6 jul", kosten: 460, volume: 290 },
+        { week: "13 jul", kosten: 480, volume: 300 },
+        { week: "20 jul", kosten: 470, volume: 295 },
+        { week: "27 jul", kosten: 460, volume: 270 },
+        { week: "3 aug", kosten: 492.0, volume: 302.3 },
+        { week: "10 aug", kosten: 201.73, volume: 130 },
+      ],
     },
     {
       badge: "Verkeer",
       badgeColor: "blue",
       title: "Landingspagina-weergaven",
       volumeLabel: "LP-weergaven",
+      ratioLabel: "weergave",
       stats: [
         { value: "€87,57", label: "Kosten", deltaPct: -60, deltaTone: "bad" },
         { value: "1.299", label: "LP-weergaven", deltaPct: -61, deltaTone: "bad" },
@@ -194,6 +245,15 @@ export const monitorMeta = {
       campaigns: [
         { campagne: "Prospecting — Outdoor Cooking", kosten: 40.0, volume: 610 },
         { campagne: "Prospecting — Wonen Algemeen", kosten: 47.57, volume: 689 },
+      ],
+      trend: [
+        { week: "29 jun", kosten: 150, volume: 1500 },
+        { week: "6 jul", kosten: 205, volume: 3000 },
+        { week: "13 jul", kosten: 210, volume: 3100 },
+        { week: "20 jul", kosten: 205, volume: 3000 },
+        { week: "27 jul", kosten: 205, volume: 3050 },
+        { week: "3 aug", kosten: 218.9, volume: 3330.8 },
+        { week: "10 aug", kosten: 87.57, volume: 1299 },
       ],
     },
   ] as MonitorFunnel[],
